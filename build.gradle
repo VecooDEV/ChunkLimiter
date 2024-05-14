@@ -1,0 +1,35 @@
+subprojects {
+    apply plugin: 'java'
+    group = 'com.vecoo.chunklimiter'
+    version = '1.0.0'
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    ext {
+        forgeVersion = "none"
+    }
+
+    jar {
+        setArchiveBaseName("${rootProject.name}-Forge")
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    task versionedRelease(type: Copy) {
+        dependsOn('shadowJar')
+        delete fileTree('../release/') {
+            include '**/*.jar'
+        }
+        group "build"
+        from("./build/libs/${rootProject.name}-forge-${version}.jar")
+        into('../release/')
+        include '*.jar'
+        rename { String filename ->
+            filename.replace("-${version}.jar", "-${project.version}-${forgeVersion}.jar")
+        }
+    }
+}
