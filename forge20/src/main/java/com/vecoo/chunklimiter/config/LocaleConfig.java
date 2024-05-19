@@ -8,6 +8,8 @@ import java.io.*;
 public class LocaleConfig {
     public String limitBlocks;
     public String maxLimitBlocks;
+    public String limitTagBlocks;
+    public String maxLimitTagBlocks;
     public String limitNotificationEnabled;
     public String limitNotificationDisabled;
 
@@ -35,6 +37,8 @@ public class LocaleConfig {
                 try {
                     config.limitBlocks = "&e(!) The limit of this block per chunk is: %current%/%max%.";
                     config.maxLimitBlocks = "&e(!) You have reached the limit for this block per chunk.";
+                    config.limitTagBlocks = "&e(!) The limit of this group of blocks per chunk is: %current%/%max%.";
+                    config.maxLimitTagBlocks = "&e(!) You have reached the block group limit per chunk.";
                     config.limitNotificationEnabled = "&e(!) Limit notification enabled";
                     config.limitNotificationDisabled = "&e(!) Limit notification disabled";
                     FileWriter fileWriter = new FileWriter(configFile);
@@ -45,18 +49,6 @@ public class LocaleConfig {
                 }
             }
             return config;
-        }
-    }
-
-    public void saveConfig() {
-        File configFile = new File("config/ChunkLimiter/locale.json");
-
-        try (FileWriter writer = new FileWriter(configFile)) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(this);
-            writer.write(json);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

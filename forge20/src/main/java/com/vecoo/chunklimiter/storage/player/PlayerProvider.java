@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class PlayerProvider {
-    private String filePath = "/config/players/ChunkLimiter/";
+    private String filePath = "/storage/ChunkLimiter/players/";
     private HashMap<UUID, PlayerStorage> map;
 
     public PlayerProvider() {

@@ -4,11 +4,11 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="chunklimiter"
-version="1.0.0"
+version="1.0.1"
 displayName="ChunkLimiter"
 logoFile ="logo.png"
 authors="Vecoo"
-description="A mod that adds a block limit per chunk."
+description="Mod that adds a customizable limit on the number of blocks per chunk."
 
 [[dependencies.chunklimiter]]
 modId="forge"

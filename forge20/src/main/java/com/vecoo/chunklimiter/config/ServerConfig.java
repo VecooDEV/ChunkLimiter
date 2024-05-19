@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class ServerConfig {
     public HashMap<String, Integer> blocksCount;
+    public HashMap<String, Integer> tagBlocksCount;
 
     public static class Builder {
         public static ServerConfig load() {
@@ -32,7 +33,9 @@ public class ServerConfig {
             } else {
                 try {
                     config.blocksCount = new HashMap<>();
-                    config.blocksCount.put("block.minecraft.diamond_block", 8);
+                    config.blocksCount.put("block.minecraft.piston", 4);
+                    config.tagBlocksCount = new HashMap<>();
+                    config.tagBlocksCount.put("forge.stone", 16);
                     FileWriter fileWriter = new FileWriter(configFile);
                     gson.toJson(config, fileWriter);
                     fileWriter.close();
@@ -41,18 +44,6 @@ public class ServerConfig {
                 }
             }
             return config;
-        }
-    }
-
-    public void saveConfig() {
-        File configFile = new File("config/ChunkLimiter/config.json");
-
-        try (FileWriter writer = new FileWriter(configFile)) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(this);
-            writer.write(json);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

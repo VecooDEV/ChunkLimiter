@@ -3,7 +3,7 @@ package com.vecoo.chunklimiter;
 import com.vecoo.chunklimiter.commands.ChunkLimiterCommand;
 import com.vecoo.chunklimiter.config.LocaleConfig;
 import com.vecoo.chunklimiter.config.ServerConfig;
-import com.vecoo.chunklimiter.listener.BlockListener;
+import com.vecoo.chunklimiter.listener.ChunkLimiterListener;
 import com.vecoo.chunklimiter.storage.player.PlayerProvider;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -27,7 +27,7 @@ public class ChunkLimiter {
         loadConfig();
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new BlockListener());
+        MinecraftForge.EVENT_BUS.register(new ChunkLimiterListener());
     }
 
     public void loadConfig() {

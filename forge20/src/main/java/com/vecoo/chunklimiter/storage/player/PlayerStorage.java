@@ -24,5 +24,6 @@ public class PlayerStorage {
 
     public void setNotification(boolean toggle) {
         this.notification = toggle;
+        ChunkLimiter.getInstance().getPlayerProvider().updatePlayerStorage(this);
     }
 }
