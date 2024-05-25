@@ -17,4 +17,4 @@ A: Only server.
 A: Should work.
 
 **Q: Where can I report a bug or suggest my idea for a mod?**     
-A: Write to me on the Vecoo#2843 discord.
+A: Write to me on the @vecoo discord.
