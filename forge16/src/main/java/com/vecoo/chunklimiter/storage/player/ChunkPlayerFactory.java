@@ -4,7 +4,7 @@ import com.vecoo.chunklimiter.ChunkLimiter;
 
 import java.util.UUID;
 
-public class PlayerFactory {
+public class ChunkPlayerFactory {
     public static boolean hasNotification(UUID playerUUID) {
         return ChunkLimiter.getInstance().getPlayerProvider().getPlayerStorage(playerUUID).getNotification();
     }

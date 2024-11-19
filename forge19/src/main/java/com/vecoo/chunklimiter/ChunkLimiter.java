@@ -8,7 +8,7 @@ import com.vecoo.chunklimiter.listener.ChunkLimiterListener;
 import com.vecoo.chunklimiter.storage.player.PlayerProvider;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
@@ -42,7 +42,7 @@ public class ChunkLimiter {
     }
 
     @SubscribeEvent
-    public void onServerStarted(ServerStartedEvent event) {
+    public void onServerStarting(ServerStartingEvent event) {
         this.loadStorage();
     }
 

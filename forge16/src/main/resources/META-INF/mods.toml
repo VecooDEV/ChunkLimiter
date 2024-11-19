@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[47,)"
+loaderVersion="[36,)"
 license="All Rights Reserved"
 
 [[mods]]
@@ -13,14 +13,14 @@ description="Mod that adds a customizable limit on the number of blocks per chun
 [[dependencies.chunklimiter]]
 modId="forge"
 mandatory=true
-versionRange="[47,)"
+versionRange="[36,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.chunklimiter]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.20,)"
+versionRange="[1.16,)"
 ordering="NONE"
 side="BOTH"
 

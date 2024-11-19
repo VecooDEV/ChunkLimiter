@@ -2,3 +2,5 @@
 /release/
 /.gradle/
 /.idea/
+/forge16/build/
+/forge19/build/

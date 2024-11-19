@@ -1,22 +1,25 @@
 subprojects {
     apply plugin: 'java'
-    group = 'com.vecoo.chunklimiter'
-    version = '1.1.0'
+    apply plugin: 'idea'
 
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
+    group = 'com.vecoo.chunklimiter'
+    version = '1.2.0'
 
     ext {
         forgeVersion = "none"
     }
 
     jar {
-        setArchiveBaseName("${rootProject.name}-forge")
+        setArchiveBaseName("${rootProject.name}")
     }
 
     repositories {
         mavenCentral()
+        maven { url = "https://api.modrinth.com/maven" }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
     }
 
     task versionedRelease(type: Copy) {
@@ -25,7 +28,7 @@ subprojects {
             include '**/*.jar'
         }
         group "build"
-        from("./build/libs/${rootProject.name}-forge-${version}.jar")
+        from("./build/libs/${rootProject.name}-${version}.jar")
         into('../release/')
         include '*.jar'
         rename { String filename ->

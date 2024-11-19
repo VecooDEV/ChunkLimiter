@@ -6,11 +6,12 @@ import com.vecoo.chunklimiter.config.PermissionConfig;
 import com.vecoo.chunklimiter.config.ServerConfig;
 import com.vecoo.chunklimiter.listener.ChunkLimiterListener;
 import com.vecoo.chunklimiter.storage.player.PlayerProvider;
+import com.vecoo.extralib.permission.UtilPermissions;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,6 +33,8 @@ public class ChunkLimiter {
 
         this.loadConfig();
 
+        UtilPermissions.registerPermission(permission.getPermissionCommand());
+
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ChunkLimiterListener());
     }
@@ -42,7 +45,7 @@ public class ChunkLimiter {
     }
 
     @SubscribeEvent
-    public void onServerStarted(ServerStartedEvent event) {
+    public void onServerStarting(FMLServerStartingEvent event) {
         this.loadStorage();
     }
 

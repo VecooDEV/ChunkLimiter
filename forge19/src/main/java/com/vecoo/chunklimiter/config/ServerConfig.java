@@ -15,7 +15,7 @@ public class ServerConfig {
         this.blocksCount = new HashMap<>();
         this.blocksCount.put("minecraft:piston", 4);
         this.tagBlocksCount = new HashMap<>();
-        this.tagBlocksCount.put("forge:stone", 16);
+        this.tagBlocksCount.put("Not working", 16);
     }
 
     public String getPlayerStorage() {
