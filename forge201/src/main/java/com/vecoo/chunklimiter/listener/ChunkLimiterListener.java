@@ -4,16 +4,10 @@ import com.vecoo.chunklimiter.ChunkLimiter;
 import com.vecoo.chunklimiter.storage.player.ChunkPlayerFactory;
 import com.vecoo.extralib.chat.UtilChat;
 import com.vecoo.extralib.world.UtilWorld;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Map;
 
 public class ChunkLimiterListener {
     @SubscribeEvent
@@ -22,7 +16,7 @@ public class ChunkLimiterListener {
             return;
         }
 
-        if (player.hasPermissions(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.chunklimiter.ignore"))) {
+        if (player.hasPermissions(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("chunklimiter.attribute.ignore"))) {
             return;
         }
 
@@ -52,38 +46,38 @@ public class ChunkLimiterListener {
     }
 
 
-    @SubscribeEvent
-    public void onTagBlockPlace(BlockEvent.EntityPlaceEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) {
-            return;
-        }
-
-        if (player.hasPermissions(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.chunklimiter.ignore"))) {
-            return;
-        }
-
-        Block block = event.getPlacedBlock().getBlock();
-
-        for (Map.Entry<String, Integer> entry : ChunkLimiter.getInstance().getConfig().getTagBlocksCount().entrySet()) {
-            if (ForgeRegistries.BLOCKS.tags().getTag(TagKey.create(Registries.BLOCK, new ResourceLocation(entry.getKey()))).contains(block)) {
-
-                int blockMax = entry.getValue();
-                int countBlockChunk = UtilWorld.countBlocksInChunk(event.getLevel().getChunk(event.getPos()), entry.getKey());
-
-                if (countBlockChunk > blockMax) {
-                    event.setCanceled(true);
-                }
-
-                if (ChunkPlayerFactory.hasNotification(player.getUUID())) {
-                    if (countBlockChunk <= blockMax) {
-                        player.sendSystemMessage(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getLimitTagBlocks()
-                                .replace("%current%", String.valueOf(countBlockChunk))
-                                .replace("%max%", String.valueOf(blockMax))));
-                    } else {
-                        player.sendSystemMessage(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getMaxLimitTagBlocks()));
-                    }
-                }
-            }
-        }
-    }
+//    @SubscribeEvent
+//    public void onTagBlockPlace(BlockEvent.EntityPlaceEvent event) {
+//        if (!(event.getEntity() instanceof ServerPlayer player)) {
+//            return;
+//        }
+//
+//        if (player.hasPermissions(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.chunklimiter.ignore"))) {
+//            return;
+//        }
+//
+//        Block block = event.getPlacedBlock().getBlock();
+//
+//        for (Map.Entry<String, Integer> entry : ChunkLimiter.getInstance().getConfig().getTagBlocksCount().entrySet()) {
+//            if (ForgeRegistries.BLOCKS.tags().getTag(TagKey.create(Registries.BLOCK, new ResourceLocation(entry.getKey()))).contains(block)) {
+//
+//                int blockMax = entry.getValue();
+//                int countBlockChunk = UtilWorld.countBlocksInChunk(event.getLevel().getChunk(event.getPos()), entry.getKey());
+//
+//                if (countBlockChunk > blockMax) {
+//                    event.setCanceled(true);
+//                }
+//
+//                if (ChunkPlayerFactory.hasNotification(player.getUUID())) {
+//                    if (countBlockChunk <= blockMax) {
+//                        player.sendSystemMessage(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getLimitTagBlocks()
+//                                .replace("%current%", String.valueOf(countBlockChunk))
+//                                .replace("%max%", String.valueOf(blockMax))));
+//                    } else {
+//                        player.sendSystemMessage(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getMaxLimitTagBlocks()));
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

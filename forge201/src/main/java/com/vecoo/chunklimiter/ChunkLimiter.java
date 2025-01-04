@@ -6,6 +6,7 @@ import com.vecoo.chunklimiter.config.PermissionConfig;
 import com.vecoo.chunklimiter.config.ServerConfig;
 import com.vecoo.chunklimiter.listener.ChunkLimiterListener;
 import com.vecoo.chunklimiter.storage.player.PlayerProvider;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
@@ -26,6 +27,8 @@ public class ChunkLimiter {
     private PermissionConfig permission;
 
     private PlayerProvider playerProvider;
+
+    private MinecraftServer server;
 
     public ChunkLimiter() {
         instance = this;
@@ -61,7 +64,7 @@ public class ChunkLimiter {
 
     public void loadStorage() {
         try {
-            this.playerProvider = new PlayerProvider();
+            this.playerProvider = new PlayerProvider("/%directory%/storage/ChunkLimiter/", this.server);
             this.playerProvider.init();
         } catch (Exception e) {
             LOGGER.error("[ChunkLimiter] Error load storage.");

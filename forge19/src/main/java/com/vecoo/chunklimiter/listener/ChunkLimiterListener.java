@@ -16,7 +16,7 @@ public class ChunkLimiterListener {
             return;
         }
 
-        if (player.hasPermissions(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.chunklimiter.ignore"))) {
+        if (player.hasPermissions(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("chunklimiter.attribute.ignore"))) {
             return;
         }
 

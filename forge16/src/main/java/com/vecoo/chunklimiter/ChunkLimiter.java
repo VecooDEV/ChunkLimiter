@@ -6,7 +6,7 @@ import com.vecoo.chunklimiter.config.PermissionConfig;
 import com.vecoo.chunklimiter.config.ServerConfig;
 import com.vecoo.chunklimiter.listener.ChunkLimiterListener;
 import com.vecoo.chunklimiter.storage.player.PlayerProvider;
-import com.vecoo.extralib.permission.UtilPermissions;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,12 +28,12 @@ public class ChunkLimiter {
 
     private PlayerProvider playerProvider;
 
+    private MinecraftServer server;
+
     public ChunkLimiter() {
         instance = this;
 
         this.loadConfig();
-
-        UtilPermissions.registerPermission(permission.getPermissionCommand());
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ChunkLimiterListener());
@@ -46,6 +46,7 @@ public class ChunkLimiter {
 
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
+        this.server = event.getServer();
         this.loadStorage();
     }
 
@@ -64,7 +65,7 @@ public class ChunkLimiter {
 
     public void loadStorage() {
         try {
-            this.playerProvider = new PlayerProvider();
+            this.playerProvider = new PlayerProvider("/%directory%/storage/ChunkLimiter/players", this.server);
             this.playerProvider.init();
         } catch (Exception e) {
             LOGGER.error("[ChunkLimiter] Error load storage.");
@@ -93,5 +94,9 @@ public class ChunkLimiter {
 
     public PlayerProvider getPlayerProvider() {
         return instance.playerProvider;
+    }
+
+    public MinecraftServer getServer() {
+        return this.server;
     }
 }

@@ -3,7 +3,7 @@ package com.vecoo.chunklimiter.listener;
 import com.vecoo.chunklimiter.ChunkLimiter;
 import com.vecoo.chunklimiter.storage.player.ChunkPlayerFactory;
 import com.vecoo.extralib.chat.UtilChat;
-import com.vecoo.extralib.permission.UtilPermissions;
+import com.vecoo.extralib.permission.UtilPermission;
 import com.vecoo.extralib.world.UtilWorld;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -20,7 +20,7 @@ public class ChunkLimiterListener {
 
         ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
 
-        if (UtilPermissions.hasPermission(player, "minecraft.command.chunklimiter.ignore", ChunkLimiter.getInstance().getPermission().getPermissionCommand())) {
+        if (UtilPermission.hasPermission(player, "chunklimiter.attribute.ignore")) {
             return;
         }
 

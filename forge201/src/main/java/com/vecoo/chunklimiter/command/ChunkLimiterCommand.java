@@ -10,22 +10,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.chunk.ChunkAccess;
 
-import java.util.Arrays;
-
 public class ChunkLimiterCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        for (String command : Arrays.asList("chunklimiter", "cl")) {
-            dispatcher.register(Commands.literal(command)
-                    .requires(p -> p.hasPermission(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.chunklimiter")))
-                    .executes(e -> execute(e.getSource().getPlayerOrException()))
-                    .then(Commands.literal("limits")
-                            .executes(e -> executeLimits(e.getSource().getPlayerOrException())))
-                    .then(Commands.literal("reload")
-                            .requires(p -> p.hasPermission(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.chunklimiter.reload")))
-                            .executes(e -> executeReload(e.getSource())))
-                    .then(Commands.literal("help")
-                            .executes(e -> executeHelp(e.getSource()))));
-        }
+        dispatcher.register(Commands.literal("cl")
+                .requires(p -> p.hasPermission(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.cl")))
+                .executes(e -> execute(e.getSource().getPlayerOrException()))
+                .then(Commands.literal("limits")
+                        .executes(e -> executeLimits(e.getSource().getPlayerOrException())))
+                .then(Commands.literal("reload")
+                        .requires(p -> p.hasPermission(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.cl.reload")))
+                        .executes(e -> executeReload(e.getSource())))
+                .then(Commands.literal("help")
+                        .executes(e -> executeHelp(e.getSource()))));
     }
 
     private static int execute(ServerPlayer player) {
@@ -59,7 +55,7 @@ public class ChunkLimiterCommand {
 
             player.sendSystemMessage(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getLimitsChunk()
                     .replace("%block%", block)
-                    .replace("%maxCount%", String.valueOf( ChunkLimiter.getInstance().getConfig().getBlocksCount().get(block)))
+                    .replace("%maxCount%", String.valueOf(ChunkLimiter.getInstance().getConfig().getBlocksCount().get(block)))
                     .replace("%currentCount%", String.valueOf(currentCount))));
         }
         return 1;
