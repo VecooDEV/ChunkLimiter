@@ -14,10 +14,12 @@ public class LocaleConfig {
     private String limitsChunk = "&e- %block% - %currentCount%/%maxCount%";
     private String limitNotificationEnabled = "&e(!) Limit notification enabled.";
     private String limitNotificationDisabled = "&e(!) Limit notification disabled.";
-    private String modHelpPlayer = "&eInformation the ChunkLimiter:\n" +
+    private String help = "&eInformation the ChunkLimiter:\n" +
             "- /cl - Enable or disable notifications about chunk limits.\n" +
-            "- /cl reload - Reload all configurations.\n" +
+            "- /cl limits - Shows your current limits in the chunk..\n" +
             "- /cl help - Information the mod";
+    private String helpOp = "\n&e- /cl reload - Reload all configurations.";
+
 
     public String getConfigReload() {
         return this.configReload;
@@ -47,8 +49,12 @@ public class LocaleConfig {
         return this.maxLimitTagBlocks;
     }
 
-    public String getModHelpPlayer() {
-        return this.modHelpPlayer;
+    public String getHelp() {
+        return this.help;
+    }
+
+    public String getHelpOp() {
+        return this.helpOp;
     }
 
     public String getLimitsChunk() {
@@ -64,7 +70,7 @@ public class LocaleConfig {
             CompletableFuture<Boolean> future = UtilGson.readFileAsync("/config/ChunkLimiter/", "locale.json", el -> {
                 LocaleConfig config = UtilGson.newGson().fromJson(el, LocaleConfig.class);
 
-                this.modHelpPlayer = config.getModHelpPlayer();
+                this.help = config.getHelp();
                 this.maxLimitTagBlocks = config.getMaxLimitTagBlocks();
                 this.configReload = config.getConfigReload();
                 this.limitBlocks = config.getLimitBlocks();
@@ -74,6 +80,7 @@ public class LocaleConfig {
                 this.maxLimitTagBlocks = config.getMaxLimitTagBlocks();
                 this.maxLimitBlocks = config.getMaxLimitBlocks();
                 this.limitsChunk = config.getLimitsChunk();
+                this.help = config.getHelpOp();
             });
             if (!future.join()) {
                 write();

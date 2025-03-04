@@ -2,7 +2,6 @@ package com.vecoo.chunklimiter;
 
 import com.vecoo.chunklimiter.command.ChunkLimiterCommand;
 import com.vecoo.chunklimiter.config.LocaleConfig;
-import com.vecoo.chunklimiter.config.PermissionConfig;
 import com.vecoo.chunklimiter.config.ServerConfig;
 import com.vecoo.chunklimiter.listener.ChunkLimiterListener;
 import com.vecoo.chunklimiter.storage.player.PlayerProvider;
@@ -24,7 +23,6 @@ public class ChunkLimiter {
 
     private ServerConfig config;
     private LocaleConfig locale;
-    private PermissionConfig permission;
 
     private PlayerProvider playerProvider;
 
@@ -56,8 +54,6 @@ public class ChunkLimiter {
             this.config.init();
             this.locale = new LocaleConfig();
             this.locale.init();
-            this.permission = new PermissionConfig();
-            this.permission.init();
         } catch (Exception e) {
             LOGGER.error("[ChunkLimiter] Error load config.");
         }
@@ -65,7 +61,7 @@ public class ChunkLimiter {
 
     public void loadStorage() {
         try {
-            this.playerProvider = new PlayerProvider("/%directory%/storage/ChunkLimiter/players", this.server);
+            this.playerProvider = new PlayerProvider("/%directory%/storage/ChunkLimiter/players/", this.server);
             this.playerProvider.init();
         } catch (Exception e) {
             LOGGER.error("[ChunkLimiter] Error load storage.");
@@ -86,10 +82,6 @@ public class ChunkLimiter {
 
     public LocaleConfig getLocale() {
         return instance.locale;
-    }
-
-    public PermissionConfig getPermission() {
-        return instance.permission;
     }
 
     public PlayerProvider getPlayerProvider() {

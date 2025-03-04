@@ -2,7 +2,7 @@ package com.vecoo.chunklimiter.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.vecoo.chunklimiter.ChunkLimiter;
-import com.vecoo.chunklimiter.storage.player.ChunkPlayerFactory;
+import com.vecoo.chunklimiter.storage.ChunkPlayerFactory;
 import com.vecoo.extralib.chat.UtilChat;
 import com.vecoo.extralib.permission.UtilPermission;
 import net.minecraft.command.CommandSource;
@@ -72,7 +72,13 @@ public class ChunkLimiterCommand {
     }
 
     private static int executeHelp(CommandSource source) {
-        source.sendSuccess(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getModHelpPlayer()), false);
+        String message = ChunkLimiter.getInstance().getLocale().getHelp();
+
+        if (source.hasPermission(2)) {
+            message += ChunkLimiter.getInstance().getLocale().getHelpOp();
+        }
+
+        source.sendSuccess(UtilChat.formatMessage(message), false);
         return 1;
     }
 }

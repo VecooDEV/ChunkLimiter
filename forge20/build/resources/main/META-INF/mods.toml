@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "chunklimiter"
+version = "1.3.1"
+displayName = "ChunkLimiter"
+logoFile = "logo.png"
+authors = "Vecoo"
+description = "Mod that adds a customizable limit on the number of blocks per chunk."
+
+[[dependencies.chunklimiter]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.chunklimiter]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.chunklimiter]]
+modId = "extralib"
+mandatory = true
+versionRange = "[1.5,)"
+ordering = "NONE"
+side = "BOTH"

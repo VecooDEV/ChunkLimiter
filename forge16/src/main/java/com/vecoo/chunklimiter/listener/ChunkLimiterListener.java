@@ -1,7 +1,7 @@
 package com.vecoo.chunklimiter.listener;
 
 import com.vecoo.chunklimiter.ChunkLimiter;
-import com.vecoo.chunklimiter.storage.player.ChunkPlayerFactory;
+import com.vecoo.chunklimiter.storage.ChunkPlayerFactory;
 import com.vecoo.extralib.chat.UtilChat;
 import com.vecoo.extralib.permission.UtilPermission;
 import com.vecoo.extralib.world.UtilWorld;
@@ -48,34 +48,4 @@ public class ChunkLimiterListener {
             }
         }
     }
-
-//    @SubscribeEvent (Not working, lol)
-//    public void onTagBlockPlace(BlockEvent.EntityPlaceEvent event) {
-//        Block block = event.getPlacedBlock().getBlock();
-//
-//        for (Map.Entry<String, Integer> entry : ChunkLimiter.getInstance().getConfig().getTagBlocksCount().entrySet()) {
-//            if (BlockTags.bind(entry.getKey()).contains(block)) {
-//
-//                int blockMax = entry.getValue();
-//                int countBlockChunk = UtilWorld.countBlocksInChunk(event.getWorld().getChunk(event.getPos()), entry.getKey());
-//
-//                if (countBlockChunk > blockMax) {
-//                    event.setCanceled(true);
-//                }
-//
-//                ServerPlayerEntity player = event.getEntity() instanceof ServerPlayerEntity ? (ServerPlayerEntity) event.getEntity() : null;
-//                if (player != null) {
-//                    if (ChunkPlayerFactory.hasNotification(player.getUUID())) {
-//                        if (countBlockChunk <= blockMax) {
-//                            player.sendMessage(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getLimitTagBlocks()
-//                                    .replace("%current%", String.valueOf(countBlockChunk))
-//                                    .replace("%max%", String.valueOf(blockMax))), Util.NIL_UUID);
-//                        } else {
-//                            player.sendMessage(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getMaxLimitTagBlocks()), Util.NIL_UUID);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

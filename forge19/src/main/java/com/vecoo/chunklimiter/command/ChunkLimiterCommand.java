@@ -2,8 +2,10 @@ package com.vecoo.chunklimiter.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.vecoo.chunklimiter.ChunkLimiter;
-import com.vecoo.chunklimiter.storage.player.ChunkPlayerFactory;
+import com.vecoo.chunklimiter.storage.ChunkPlayerFactory;
+import com.vecoo.chunklimiter.util.PermissionNodes;
 import com.vecoo.extralib.chat.UtilChat;
+import com.vecoo.extralib.permission.UtilPermission;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
@@ -13,12 +15,12 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 public class ChunkLimiterCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("cl")
-                .requires(p -> p.hasPermission(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.cl")))
+                .requires(p -> UtilPermission.hasPermission(p, PermissionNodes.CHUNKLIMITER_COMMAND))
                 .executes(e -> execute(e.getSource().getPlayerOrException()))
                 .then(Commands.literal("limits")
                         .executes(e -> executeLimits(e.getSource().getPlayerOrException())))
                 .then(Commands.literal("reload")
-                        .requires(p -> p.hasPermission(ChunkLimiter.getInstance().getPermission().getPermissionCommand().get("minecraft.command.cl.reload")))
+                        .requires(p -> UtilPermission.hasPermission(p, PermissionNodes.CHUNKLIMITER_RELOAD_COMMAND))
                         .executes(e -> executeReload(e.getSource())))
                 .then(Commands.literal("help")
                         .executes(e -> executeHelp(e.getSource()))));
@@ -70,7 +72,13 @@ public class ChunkLimiterCommand {
     }
 
     private static int executeHelp(CommandSourceStack source) {
-        source.sendSuccess(UtilChat.formatMessage(ChunkLimiter.getInstance().getLocale().getModHelpPlayer()), false);
+        String message = ChunkLimiter.getInstance().getLocale().getHelp();
+
+        if (source.hasPermission(2)) {
+            message += ChunkLimiter.getInstance().getLocale().getHelpOp();
+        }
+
+        source.sendSuccess(UtilChat.formatMessage(message), false);
         return 1;
     }
 }
